@@ -1,6 +1,7 @@
 # tractor_tests
 Tests related to modeling dwarf galaxies using `the Tractor`. 
-Requirements for running... 
+
+Requirements: 
 * `tractor`
 * `kuaizi`
 * `insert_name_here`
