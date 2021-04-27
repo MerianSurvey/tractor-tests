@@ -4,6 +4,6 @@ Tests related to modeling dwarf galaxies using `the Tractor`.
 Requirements: 
 * `tractor`
 * `kuaizi`
-* `insert_name_here`
+* `rubberband`
 * `astrometry.net`
 * (to be updated.)
