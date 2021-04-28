@@ -546,22 +546,21 @@ def rubber_tractor_iteration(obj_cat, w, img_data, invvar, psf_obj, pixel_scale,
             trac_obj = Tractor([tim], sources)
             trac_mod = trac_obj.getModelImage(0, minsb=0.0)
             
-            # print all parameters
+            # freeze parameters
             
             if freeze_pos:
                 for src in sources:
                     src.freezeParam('pos')
             if freeze_shape: 
-                for src in source: 
-                    src.freezeParam('re')
-                    src.freezeParam('e1')
-                    src.freezeParam('e2')
-            '''        
+                for src in sources: 
+                    src.freezeParam('shape')
+                   
             if freeze_sersic: 
-                for src in source: 
-                    src.freezeParam('')
-            '''       
+                for src in sources: 
+                    src.freezeParam('sersicindex')
+     
             trac_obj.freezeParam('images')
+        
             trac_obj.optimize_loop()
         #     # Take several linearized least squares steps
         #     for i in range(20):
@@ -571,6 +570,8 @@ def rubber_tractor_iteration(obj_cat, w, img_data, invvar, psf_obj, pixel_scale,
         # print(dlnp, i)
 
         ########################
+        print("Thawed parameters:")
+        trac_obj.printThawedParams()
         plt.rc('font', size=20)
         if i % 2 == 1 or i == (kfold - 1):
             fig, [ax1, ax2, ax3] = plt.subplots(1, 3, figsize=(18, 8))
@@ -872,6 +873,9 @@ def rubber_tractor_hsc_sep(obj, filt, channels, data, brick_file='../survey-bric
     kfold = 3
     while True:
         try:
+            print("kfold: ")
+            print(kfold)
+          
             if kfold == 1:
                 break
             sources, trac_obj, fig = rubber_tractor_iteration(
